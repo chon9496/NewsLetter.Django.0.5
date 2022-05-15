@@ -488,13 +488,16 @@ especificar que estamos incluyendo a urls de newletter
         {% tailwind_css %}
     </head>
     <body>
-    {% block messages %}{% include 'messages.html' %}{% endblock messages %}
     {% block content %}
 
     {% endblock content %}
     </body>
     </html>
 
+## Crear usuario:
+
+    python manage.py createsuperuser
+    
 # ⋖⥐⋗⫷·.·⫸○⫷⫸█■¯Δ|Δ⋖_⋗》¬﹝⍨﹞⌐《⋖_⋗Δ|Δ¯■█⫷⫸○⫷·.·⫸⋖⥐⋗
 
 # MensajeEnPantalla:
@@ -564,5 +567,6 @@ esto es el mensajito que sale cuando te registrar el mensaje pantalla
     </div>
     {% endfor %}
     {% endif %}
+
 
 # ⋖⥐⋗⫷·.·⫸○⫷⫸█■¯Δ|Δ⋖_⋗》¬﹝⍨﹞⌐《⋖_⋗Δ|Δ¯■█⫷⫸○⫷·.·⫸⋖⥐⋗
