@@ -239,3 +239,140 @@ Ambas funcionan con las clases creadas en models
 
 
 # ⋖⥐⋗⫷·.·⫸○⫷⫸█■¯Δ|Δ⋖_⋗》¬﹝⍨﹞⌐《⋖_⋗Δ|Δ¯■█⫷⫸○⫷·.·⫸⋖⥐⋗
+
+# Vistas: 
+
+## Suscribirse:
+
+### newsletters/views.py:
+
+    from django.contrib import messages
+    from newsletters.models import NewsletterUser
+    from django.shortcuts import render
+    from .forms import NewsletterUserSignUpForm
+    from django.conf import settings
+    from django.template.loader import render_to_string
+    from django.core.mail import send_mail, EmailMessage
+
+empesamos jalando request.POST a form y si no hay nada 
+no jalas nada
+
+    def newsletter_signup(request):
+        form =NewsletterUserSignUpForm(request.POST or None)
+
+decimos que si el formulario es valido la informacion la
+tomamos como una instancia
+
+    if form.is_valid():
+        instance=form.save(commit=False) 
+
+aca vemos si ese usuario existe pasandola por filter 
+decimos que hacemos un filtro a email y email es la
+instancia y que queremos el email de la instancia
+filter(email=instance.email) y si existe nosa saldra un
+mensaje
+
+    if NewsletterUser.objects.filter(email=instance.email).exists():
+        messages.warning(request, 'Email already exists.')
+
+si el correo no existe se guarda como instancia y sale un 
+mensaje y desde ahi mismo mandamos el correo en frpm_email
+tenemos que agregar EMAIL_HOST_USER en settings.py
+
+    else:
+        instance.save()
+        messages.success(request, 'Hemos enviado un correo electronico a su correo, abrelo para continuar con el entrenamiento')
+        #Correo electronico
+        subject="Libro de cocina"
+        from_email=settings.EMAIL_HOST_USER
+        to_email=[instance.email]
+
+·Templates y sus ubicaniones
+·Luego lo convertimos a cadena para poder usarlo en el 
+envio
+·para el envio final creamos la variable y ponemos 
+EmailMessage
+a todo esto le damos un subject y el from_email, to_email 
+y html_message
+·Para poder enviarlo decimos que el contenido sera tipo 
+html luego ponemos  message.send() para enviarlo
+·Tenemos que darle un contexto tambien
+        'form':form,
+·Luego ya ponemos en return porque las funciones lo 
+requieren y retornamos: 
+render(request, 'start-here.html', context)
+request para enviar info al servidor y al cliente
+start-.htlm para el llamado a la accion para registrar 
+el correo sera la pagina 
+y para renderizar poenmos el contexto 
+asi ya estara lista nuestra funcion
+
+            html_template='newsletters/email_templates/welcome.html'
+            html_message=render_to_string(html_template)
+            message=EmailMessage(subject,html_message, from_email, to_email)
+            message.content_subtype='html'
+            message.send()
+
+    context={
+        'form':form,
+    }
+    return render(request, 'start-here.html', context)
+
+### core/settings.py:
+
+    EMAIL_HOST_USER ='davidarangolucar@gmail.com'
+    
+    EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
+
+### templates/newsletters/email_templates/welcome.html:
+dentro de templates creas un start-here.html una carptea
+newsletters dentro de esta creamos otra email_templates 
+y aca dentro creamos welcome.html
+#### welcome.html:
+
+    <html>
+        <head>
+        </head>
+        <body>
+        <h2>Bienvenido<h2>
+            <p> Here we'll send you important information <p>
+        </body>
+    </html> 
+
+### start-here.html:
+
+    {% extends 'base.html' %}
+
+    {% block content %}
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- We've used 3xl here, but feel free to try other max-widths based on your needs -->
+    <div class="max-w-3xl mx-auto">
+        <!-- Content goes here -->
+
+            <div class="bg-white">
+                <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+                    <h2 class="inline text-3xl font-extrabold tracking-tight text-gray-900 sm:block sm:text-4xl">
+                    Want product news and updates?
+                    </h2>
+                    <p class="inline text-3xl font-extrabold tracking-tight text-indigo-600 sm:block sm:text-4xl">Sign up for our newsletter.</p>
+                    <form method="POST" class="mt-8 sm:flex">
+                    {% csrf_token %}
+                        <label for="emailAddress" class="sr-only">Email address</label>
+                        <input id="emailAddress" name="email" type="email" autocomplete="email" required class="mr-3 px-5 py-3 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs border-gray-300 rounded-md" placeholder="Enter your email">
+                        
+                        <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3 sm:flex-shrink-0">
+                            <button type="submit" class="w-full flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Notify me
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+    </div>
+    </div>
+    {% endblock content %}
+
+
+
+# ⋖⥐⋗⫷·.·⫸○⫷⫸█■¯Δ|Δ⋖_⋗》¬﹝⍨﹞⌐《⋖_⋗Δ|Δ¯■█⫷⫸○⫷·.·⫸⋖⥐⋗
