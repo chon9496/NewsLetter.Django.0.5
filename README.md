@@ -373,4 +373,102 @@ y aca dentro creamos welcome.html
     </div>
     {% endblock content %}
 
+## DeSuscribirse:
+
+### newsletters/views.py:
+
+Indicamos que trabajaremos con el formulario siguiente
+y decimos que si existe este correo en la base de datos
+este se eliminara y nos mostrara el mensaje de eliminado
+De lo contrario nos saldra un mensaje warnig
+Agregamos contexto
+ y retornamos render
+
+
+    def newsletter_unsubscribe(request):
+        form =NewsletterUserSignUpForm(request.POST or None)
+
+        if form.is_valid():
+            instance = form.save(commit=False)
+            if NewsletterUser.objects.filter(email=instance.email).exists():
+                NewsletterUser.objects.filter(email=instance.email).delete()
+                messages.success(request, 'Email has been removed.')
+            else:
+                print('Email not found.')
+                messages.warning(request, 'Email not found.')
+
+        context = {
+            "form": form,
+        }
+
+        return render(request, 'unsuscribe.html', context)
+
+### src/newsletters/admin.py:
+
+    from .models import NewsletterUser,Newsletter
+
+    admin.site.register(NewsletterUser)
+    admin.site.register(Newsletter)
+
+### templates:
+crear unsuscribe.html
+
+    {% extends 'base.html' %}
+    {% block content %}
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- We've used 3xl here, but feel free to try other max-widths based on your needs -->
+    <div class="max-w-3xl mx-auto">
+        <!-- Content goes here -->
+            <div class="bg-white">
+                <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+                    <p class="inline text-3xl font-extrabold tracking-tight text-indigo-600 sm:block sm:text-4xl">Unsubscribe from our newsletter.</p>
+                    <form method="POST" class="mt-8 sm:flex">
+                        {% csrf_token %}
+                        <label for="emailAddress" class="sr-only">Email address</label>
+                        <input id="emailAddress" name="email" type="email" autocomplete="email" required class="mr-3 px-5 py-3 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs border-gray-300 rounded-md" placeholder="Enter your email">
+                        <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3 sm:flex-shrink-0">
+                            <button type="submit" class="w-full flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Unsubscribe
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+    </div>
+    </div>
+    {% endblock content %}
+    
+### newsletters:
+creamos urls.py
+
+
+Indicamos que trabajaremos con el formulario siguiente
+comenzamos declarando la instancia del usuario y decimos 
+si existe este correo en la base de datos este se eliminara
+y nos mostrara el mensaje de eliminado
+De lo contrario nos saldra un mensaje warnig
+Agregamos contexto
+para terminar retornamos render pero con ussuscribe.html
+    
+    from django.urls import path
+    from .views import newsletter_signup, newsletter_unsubscribe
+
+    app_name="newsletters"
+
+    urlpatterns = [
+        path('entrenamiento/', newsletter_signup, name="optin"),
+        path('unsubscribe/', newsletter_unsubscribe, name="unsubscribe"),
+    ]
+
+### core/urls.py:
+from django.urls import path,include
+al momento de hacer nuestro path en core tenemos que 
+especificar que estamos incluyendo a urls de newletter
+
+    urlpatterns = [
+        path('admin/', admin.site.urls),
+        path('newsletter/', include('newsletters.urls',namespace='newsletter')),
+
+    ]
+
 # ⋖⥐⋗⫷·.·⫸○⫷⫸█■¯Δ|Δ⋖_⋗》¬﹝⍨﹞⌐《⋖_⋗Δ|Δ¯■█⫷⫸○⫷·.·⫸⋖⥐⋗
