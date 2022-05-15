@@ -1,0 +1,4 @@
+Django==4.0.4
+pillow==9.1.0
+Django-environ==0.8.1
+Django-tailwind==2.2.0
