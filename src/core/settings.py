@@ -31,6 +31,9 @@ INSTALLED_APPS = [
 TAILWIND_APP_NAME = 'theme'
 INTERNAL_IPS = ["127.0.0.1",]
 
+EMAIL_HOST_USER ='davidarangolucar@gmail.com'
+    
+EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
