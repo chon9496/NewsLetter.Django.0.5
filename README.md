@@ -213,3 +213,29 @@ python manage.py migrate
 
 # ⋖⥐⋗⫷·.·⫸○⫷⫸█■¯Δ|Δ⋖_⋗》¬﹝⍨﹞⌐《⋖_⋗Δ|Δ¯■█⫷⫸○⫷·.·⫸⋖⥐⋗
 
+# Formularios:
+creamos forms.py en newsletters
+
+## newsletters/forms.py:
+Hacemos unas importaciones de .models y creamos nuestras
+clases
+una que es para el email y la otra sera para el mensaje
+Ambas funcionan con las clases creadas en models
+
+    from django import forms
+    from .models import Newsletter, NewsletterUser
+
+
+    class NewsletterUserSignUpForm(forms.ModelForm):
+        class Meta:
+            model = NewsletterUser
+            fields = ['email']
+
+
+    class NewsletterCreationForm(forms.ModelForm):
+        class Meta:
+            model = Newsletter
+            fields=['name','subject','body','email']
+
+
+# ⋖⥐⋗⫷·.·⫸○⫷⫸█■¯Δ|Δ⋖_⋗》¬﹝⍨﹞⌐《⋖_⋗Δ|Δ¯■█⫷⫸○⫷·.·⫸⋖⥐⋗
