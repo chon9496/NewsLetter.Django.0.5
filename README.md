@@ -373,6 +373,4 @@ y aca dentro creamos welcome.html
     </div>
     {% endblock content %}
 
-
-
 # ⋖⥐⋗⫷·.·⫸○⫷⫸█■¯Δ|Δ⋖_⋗》¬﹝⍨﹞⌐《⋖_⋗Δ|Δ¯■█⫷⫸○⫷·.·⫸⋖⥐⋗
