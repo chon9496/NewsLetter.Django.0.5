@@ -11,9 +11,9 @@
     {% tailwind_css %}
 </head>
 <body>
+    {% block messages %}{% include 'messages.html' %}{% endblock messages %}
+    {% block content %}
 
-{% block content %}
-
-{% endblock content %}
+    {% endblock content %}
 </body>
 </html>
