@@ -38,7 +38,6 @@ Ejecutamos en la terminal
 
     pip install -r requiriments.txt
 
-# ⋖⥐⋗⫷·.·⫸○⫷⫸█■¯Δ|Δ⋖_⋗》¬﹝⍨﹞⌐《⋖_⋗Δ|Δ¯■█⫷⫸○⫷·.·⫸⋖⥐⋗
 
 # StartProject:
 
@@ -148,7 +147,6 @@ Para ello debemos de crear nustra carpeta static y media
         urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 
-# ⋖⥐⋗⫷·.·⫸○⫷⫸█■¯Δ|Δ⋖_⋗》¬﹝⍨﹞⌐《⋖_⋗Δ|Δ¯■█⫷⫸○⫷·.·⫸⋖⥐⋗
 
 # StartApp:
 *cmd*
@@ -211,7 +209,6 @@ python manage.py makemigrations
 python manage.py migrate
 
 
-# ⋖⥐⋗⫷·.·⫸○⫷⫸█■¯Δ|Δ⋖_⋗》¬﹝⍨﹞⌐《⋖_⋗Δ|Δ¯■█⫷⫸○⫷·.·⫸⋖⥐⋗
 
 # Formularios:
 creamos forms.py en newsletters
@@ -500,7 +497,6 @@ especificar que estamos incluyendo a urls de newletter
 
     python manage.py createsuperuser
     
-# ⋖⥐⋗⫷·.·⫸○⫷⫸█■¯Δ|Δ⋖_⋗》¬﹝⍨﹞⌐《⋖_⋗Δ|Δ¯■█⫷⫸○⫷·.·⫸⋖⥐⋗
 
 # MensajeEnPantalla:
 esto es el mensajito que sale cuando te registrar el mensaje pantalla
@@ -1142,6 +1138,7 @@ crear el urls.py en el dashboard
 
     python manage.py migrate
 
+
 # Crear Correos:
 
 ## src/templates/dashboard/create.html:
@@ -1360,6 +1357,7 @@ crear el urls.py en el dashboard
                 'form':form
             }
             return render (request,'dashboard/create-html',context)
+
 
 # Status Correo:
 
