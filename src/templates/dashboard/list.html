@@ -167,9 +167,13 @@
 
                     <tbody class="bg-white divide-y divide-gray-200">
                       {% for newsletter in newsletters %}
-                        <tr>
+                          <tr>
                           <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        <a href="{% url 'dashboard:detail' newsletter.id %}">
+                            
                             {{newsletter.name}}
+                        </a>
+
                           </td>
                           <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                             {{newsletter.subject}}
