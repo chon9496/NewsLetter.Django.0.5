@@ -1112,7 +1112,6 @@ crear el urls.py en el dashboard
 
     {% endblock content %}
 
-# ⋖⥐⋗⫷·.·⫸○⫷⫸█■¯Δ|Δ⋖_⋗》¬﹝⍨﹞⌐《⋖_⋗Δ|Δ¯■█⫷⫸○⫷·.·⫸⋖⥐⋗
 
 # Vistas:
 

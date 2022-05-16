@@ -9,7 +9,7 @@ class NewsletterUser(models.Model):
         return self.email
     
 class Newsletter(models.Model):
-  
+      
     EMAIL_STATUS_CHOICES=(
         ('draft','draft'),
         ('published','published')    
