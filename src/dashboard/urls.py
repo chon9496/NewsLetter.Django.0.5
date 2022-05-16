@@ -7,7 +7,9 @@ urlpatterns = [
     path('',DashboardHomeView.as_view(),name="home"),
     path('list/',NewslettersDashboardHomeView.as_view(),name="list"),
     path('create/',NewsletterCreateView.as_view(),name="create"),
-    path('detail/',NewsletterDetailView.as_view(),name="detail"),
+    path('detail/<int:pk>',NewsletterDetailView.as_view(),name="detail"),
+    path('update/<int:pk>',NewsletterDetailView.as_view(),name="update"),
+    
     
     
 ]
