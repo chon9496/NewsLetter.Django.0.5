@@ -21,6 +21,7 @@ class Newsletter(models.Model):
     email   = models.ManyToManyField(NewsletterUser)
     created = models.DateTimeField(auto_now_add=True)
 
+    status  = models.CharField(max_length=10,choices=EMAIL_STATUS_CHOICES)
     def __str__(self):
         return self.name
     
