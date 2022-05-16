@@ -9,6 +9,12 @@ class NewsletterUser(models.Model):
         return self.email
     
 class Newsletter(models.Model):
+  
+    EMAIL_STATUS_CHOICES=(
+        ('draft','draft'),
+        ('published','published')    
+    )
+            
     name    = models.CharField(max_length=250)
     subject = models.CharField(max_length=250)
     body    = models.TextField(blank=True, null=True)
@@ -17,3 +23,6 @@ class Newsletter(models.Model):
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        ordering = ('-created',)
