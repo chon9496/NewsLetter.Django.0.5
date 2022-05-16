@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.shortcuts import redirect, render
 
 from django.views.generic import TemplateView, View
@@ -51,3 +52,10 @@ class NewsletterCreateView(View):
             'form':form
         }
         return render (request,'dashboard/create.html',context)
+    
+class NewsletterDetailView(View):
+    def get  (self,  request, *args, **kwargs):
+        context={
+            
+        }
+        return render (request, 'dashboard/detail.html',context)
