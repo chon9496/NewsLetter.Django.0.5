@@ -353,7 +353,7 @@ y aca dentro creamos welcome.html
 
             <div class="bg-white">
                 <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
-                    <h2 class="inline text-3xl font-extrabold tracking-tight text-gray-900 sm:block sm:text-4xl">
+    <h2 class="inline text-3xl font-extrabold tracking-tight text-gray-900 sm:block sm:text-4xl">
                     Want product news and updates?
                     </h2>
                     <p class="inline text-3xl font-extrabold tracking-tight text-indigo-600 sm:block sm:text-4xl">Sign up for our newsletter.</p>
@@ -1360,6 +1360,29 @@ crear el urls.py en el dashboard
                 'form':form
             }
             return render (request,'dashboard/create-html',context)
+
+# Status Correo:
+
+## src/dashboard/views.py:
+
+    from django.conf import settings
+    from django.core.mail import send_mail, EmailMultiAlternatives, EmailMessage 
+
+    form = NewsletterCreationForm(request.POST or None)
+    
+    if form.is_valid():
+        instance=form.save()
+        newsletter=Newsletter.objects.get(id=instance.id)
+        
+        if newsletter.status=="published":
+            subject=newsletter.subject
+            body = newsletter.body
+            from_email = settings.EMAIL_HOST_USER
+            for email in newsletter.email.all():
+                send_mail(subject=subject, from_email=from_email, recipient_list=[email],message=body,fail_silently=True)
+        return redirect('dashboard:list')
+
+
 
 # ⋖⥐⋗⫷·.·⫸○⫷⫸█■¯Δ|Δ⋖_⋗》¬﹝⍨﹞⌐《⋖_⋗Δ|Δ¯■█⫷⫸○⫷·.·⫸⋖⥐⋗
 
