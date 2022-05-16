@@ -1113,3 +1113,35 @@ crear el urls.py en el dashboard
     {% endblock content %}
 
 # ⋖⥐⋗⫷·.·⫸○⫷⫸█■¯Δ|Δ⋖_⋗》¬﹝⍨﹞⌐《⋖_⋗Δ|Δ¯■█⫷⫸○⫷·.·⫸⋖⥐⋗
+
+# Vistas:
+
+## src/newsletters/models.py:
+
+    class Newsletter(models.Model):
+
+        EMAIL_STATUS_CHOICES=(
+            ('draft','draft'),
+            ('published','published')    
+        )
+                
+        1status  = models.CharField(max_length=10,choices=EMAIL_STATUS_CHOICES)
+        
+        class Meta:
+            ordering = ('-created',)
+
+## migracines
+
+### Makemigrations:
+    
+    python manage.py makemigrations
+
+    opcion 1
+    luego 1...
+
+### Migrate:
+
+    python manage.py migrate
+
+# ⋖⥐⋗⫷·.·⫸○⫷⫸█■¯Δ|Δ⋖_⋗》¬﹝⍨﹞⌐《⋖_⋗Δ|Δ¯■█⫷⫸○⫷·.·⫸⋖⥐⋗
+
