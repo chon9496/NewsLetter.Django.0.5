@@ -1382,7 +1382,5 @@ crear el urls.py en el dashboard
                 send_mail(subject=subject, from_email=from_email, recipient_list=[email],message=body,fail_silently=True)
         return redirect('dashboard:list')
 
-
-
 # ⋖⥐⋗⫷·.·⫸○⫷⫸█■¯Δ|Δ⋖_⋗》¬﹝⍨﹞⌐《⋖_⋗Δ|Δ¯■█⫷⫸○⫷·.·⫸⋖⥐⋗
 
