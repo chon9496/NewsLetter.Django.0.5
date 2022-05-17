@@ -48,3 +48,5 @@ def newsletter_unsubscribe(request):
     }
 
     return render(request, 'unsuscribe.html', context)
+
+

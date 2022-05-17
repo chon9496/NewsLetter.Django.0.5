@@ -24,27 +24,24 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core','tailwind','theme',
-    'newsletters','dashboard',
-]
-
-TAILWIND_APP_NAME = 'theme'
-INTERNAL_IPS = ["127.0.0.1",]
-
-EMAIL_HOST_USER ='davidarangolucar@gmail.com'
-    
-EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
-
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'core',
+    'tailwind',
+    'theme',
+    'newsletters',
+    'dashboard'
 ]
 
+EMAIL_HOST_USER='davidarangolucar@Ggmail.com'
+TAILWIND_APP_NAME = 'theme'
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 ROOT_URLCONF = 'core.urls'
 
 TEMPLATES = [
