@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render,get_object_or_404
 
-from django.views.generic import TemplateView, View
+from django.views.generic import TemplateView, View ,DeleteView
 from newsletters.models import Newsletter
 
 from newsletters.forms import NewsletterCreationForm
@@ -8,7 +8,10 @@ from newsletters.forms import NewsletterCreationForm
 from django.conf import settings
 from django.core.mail import send_mail, EmailMultiAlternatives, EmailMessage 
 
-
+class NewsletterDeleteView(DeleteView):
+    model=Newsletter
+    template_name='dashboard/delete.html'
+    success_url='/dashboard/list/'
 
 # Create your views here.
 class DashboardHomeView(TemplateView):

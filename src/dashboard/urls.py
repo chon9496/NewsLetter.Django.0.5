@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import DashboardHomeView,NewslettersDashboardHomeView,NewsletterCreateView,NewsletterDetailView
+from .views import DashboardHomeView,NewslettersDashboardHomeView,NewsletterCreateView,NewsletterDetailView,NewsletterDeleteView
 
 app_name="dashboard"
 
@@ -8,5 +8,6 @@ urlpatterns = [
     path('list/',NewslettersDashboardHomeView.as_view(),name="list"),
     path('create/',NewsletterCreateView.as_view(),name="create"),
     path('detail/<int:pk>',NewsletterDetailView.as_view(),name="detail"),
+    path('delete/<int:pk>',NewsletterDeleteView.as_view(),name="delete"),
     
 ]
