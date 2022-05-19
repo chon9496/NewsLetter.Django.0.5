@@ -1817,3 +1817,56 @@ crear el urls.py en el dashboard
     </a>
     
 # ⋖⥐⋗⫷·.·⫸○⫷⫸█■¯Δ|Δ⋖_⋗》¬﹝⍨﹞⌐《⋖_⋗Δ|Δ¯■█⫷⫸○⫷·.·⫸⋖⥐⋗
+
+# Edit:
+no se porque pero estoy teniendo problemas aca y antes de cagarla estoy guardando parte por parte mas detalladamente
+bien aca en update al momento de publicarr algo mediante actualizacion esta nose hace... 
+
+## src/dashboard/urls.py:
+
+    path('update/<int:pk>',NewsletterUpdateView.as_view(),name="update"),
+
+
+## src/dashboard/views.py:
+ 
+    class NewsletterUpdateView(UpdateView):
+        model=Newsletter
+        form_class=NewsletterCreationForm
+        template_name='dashboard/update.html'
+        success_url='/dashboard/detail/2/'
+
+        def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context.update({
+                'view_type':'update'
+            })
+            return context
+
+        def post(self, request, pk, *args, **kwargs):
+            newsletter=get_object_or_404(Newsletter, pk=pk)
+
+            if request.method=="POST":
+                form=NewsletterCreationForm(request.POST or None)
+
+                if form.is_valid():
+                    instance=form.save()
+                    newsletter=Newsletter.objects.get(id=instance.id)
+
+                    if newsletter.status=="Published":
+                        subject = newsletter.subject
+                        body = newsletter.body
+                        from_email = settings.EMAIL_HOST_USER
+                        for email in newsletter.email.all():
+                            send_mail(subject=subject, from_email=from_email, recipient_list=[email], message=body, fail_silently=True)
+                    return redirect('dashboard:detail', pk=newsletter.id)
+                return redirect('dashboard:detail', pk=newsletter.id)
+            else:
+                form=NewsletterCreationForm(instance=newsletter)
+
+            context={
+                'form':form        
+            }
+            return render(request, 'dashboard/update.html', context)
+
+
+# ⋖⥐⋗⫷·.·⫸○⫷⫸█■¯Δ|Δ⋖_⋗》¬﹝⍨﹞⌐《⋖_⋗Δ|Δ¯■█⫷⫸○⫷·.·⫸⋖⥐⋗
